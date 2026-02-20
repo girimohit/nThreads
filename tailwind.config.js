@@ -173,6 +173,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        // "dark-black" : "170A1C",
+
         "primary-500": "#877EFF",
         "secondary-500": "#FFB620",
         blue: "#0095F6",

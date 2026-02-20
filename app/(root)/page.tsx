@@ -7,11 +7,29 @@ import Pagination from "@/components/shared/Pagination";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 
-async function Home({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) {
+// async function Home({
+//   searchParams,
+// }: {
+//   searchParams: { [key: string]: string | undefined };
+// }) {
+//   const user = await currentUser();
+//   if (!user) return null;
+
+//   const userInfo = await fetchUser(user.id);
+//   if (!userInfo?.onboarded) redirect("/onboarding");
+
+//   const result = await fetchPosts(
+//     searchParams.page ? +searchParams.page : 1,
+//     30
+//   );
+
+type HomeProps = {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+};
+
+export default async function Home({ searchParams }: HomeProps) {
+  const resolvedSearchParams = await searchParams;
+
   const user = await currentUser();
   if (!user) return null;
 
@@ -19,10 +37,11 @@ async function Home({
   if (!userInfo?.onboarded) redirect("/onboarding");
 
   const result = await fetchPosts(
-    searchParams.page ? +searchParams.page : 1,
+    resolvedSearchParams.page
+      ? +resolvedSearchParams.page
+      : 1,
     30
   );
-
   return (
     <>
       <h1 className='head-text text-left'>Home</h1>
@@ -51,11 +70,11 @@ async function Home({
 
       <Pagination
         path='/'
-        pageNumber={searchParams?.page ? +searchParams.page : 1}
+        pageNumber={resolvedSearchParams?.page ? +resolvedSearchParams.page : 1}
         isNext={result.isNext}
       />
     </>
   );
 }
 
-export default Home;
+// export default Home;

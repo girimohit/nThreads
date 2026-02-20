@@ -7,11 +7,30 @@ import Pagination from "@/components/shared/Pagination";
 
 import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
 
-async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) {
+// async function Page({
+//   searchParams,
+// }: {
+//   searchParams: { [key: string]: string | undefined };
+// }) {
+//   const user = await currentUser();
+//   if (!user) return null;
+
+//   const userInfo = await fetchUser(user.id);
+//   if (!userInfo?.onboarded) redirect("/onboarding");
+
+//   const result = await fetchUsers({
+//     userId: user.id,
+//     searchString: searchParams.q,
+//     pageNumber: searchParams?.page ? +searchParams.page : 1,
+//     pageSize: 25,
+//   });
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+};
+
+export default async function Page({ searchParams }: PageProps) {
+  const resolvedSearchParams = await searchParams;
+
   const user = await currentUser();
   if (!user) return null;
 
@@ -20,8 +39,10 @@ async function Page({
 
   const result = await fetchUsers({
     userId: user.id,
-    searchString: searchParams.q,
-    pageNumber: searchParams?.page ? +searchParams.page : 1,
+    searchString: resolvedSearchParams.q,
+    pageNumber: resolvedSearchParams?.page
+      ? +resolvedSearchParams.page
+      : 1,
     pageSize: 25,
   });
 
@@ -52,11 +73,11 @@ async function Page({
 
       <Pagination
         path='search'
-        pageNumber={searchParams?.page ? +searchParams.page : 1}
+        pageNumber={resolvedSearchParams?.page ? +resolvedSearchParams.page : 1}
         isNext={result.isNext}
       />
     </section>
   );
 }
 
-export default Page;
+// export default Page;

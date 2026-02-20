@@ -10,12 +10,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { fetchUser } from "@/lib/actions/user.actions";
 
-async function Page({ params }: { params: { id: string } }) {
+// async function Page({ params }: { params: { id: string } }) {
+//   const user = await currentUser();
+//   if (!user) return null;
+
+//   const userInfo = await fetchUser(params.id);
+//   if (!userInfo?.onboarded) redirect("/onboarding");
+
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function Page({ params }: PageProps) {
+  const { id } = await params;
+
   const user = await currentUser();
   if (!user) return null;
 
-  const userInfo = await fetchUser(params.id);
+  const userInfo = await fetchUser(id);
   if (!userInfo?.onboarded) redirect("/onboarding");
+
 
   return (
     <section>
@@ -69,4 +83,4 @@ async function Page({ params }: { params: { id: string } }) {
     </section>
   );
 }
-export default Page;
+// export default Page;
