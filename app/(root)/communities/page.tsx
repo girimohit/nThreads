@@ -1,5 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import Searchbar from "@/components/shared/Searchbar";
 import Pagination from "@/components/shared/Pagination";
@@ -45,7 +46,16 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <h1 className="head-text">Communities</h1>
+      <div className='flex items-center justify-between'>
+        <h1 className='head-text'>Communities</h1>
+
+        <Link
+          href='/create-community'
+          className='bg-primary-500 px-6 py-2 text-light-1 rounded-lg text-sub-medium'
+        >
+          Create Community
+        </Link>
+      </div>
 
       <div className="mt-5">
         <Searchbar routeType="communities" />

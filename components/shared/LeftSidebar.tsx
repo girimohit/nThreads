@@ -21,11 +21,15 @@ const LeftSidebar = () => {
             (pathname.includes(link.route) && link.route.length > 1) ||
             pathname === link.route;
 
-          if (link.route === "/profile") link.route = `${link.route}/${userId}`;
+          if (link.route === "/profile") {
+            if (!userId) return null;
+          }
+
+          const href = link.route === "/profile" ? `${link.route}/${userId}` : link.route;
 
           return (
             <Link
-              href={link.route}
+              href={href}
               key={link.label}
               className={`leftsidebar_link ${isActive && "bg-primary-500 rounded-2xl "}`}
             >

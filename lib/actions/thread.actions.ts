@@ -233,6 +233,7 @@ export async function addCommentToThread(
     await originalThread.save();
 
     revalidatePath(path);
+    revalidatePath("/activity");
   } catch (err) {
     console.error("Error while adding comment:", err);
     throw new Error("Unable to add comment");
