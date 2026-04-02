@@ -35,6 +35,7 @@ type Event = {
 };
 
 export const POST = async (request: Request) => {
+  console.log("Webhook received!");
   const payload = await request.json();
   // const header = headers();
   const header = await headers();
@@ -206,4 +207,6 @@ export const POST = async (request: Request) => {
       );
     }
   }
+
+  return NextResponse.json({ message: "Event ignored" }, { status: 200 });
 };

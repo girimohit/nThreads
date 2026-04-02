@@ -127,7 +127,7 @@ export async function fetchCommunities({
     const query: FilterQuery<typeof Community> = {};
 
     // If the search string is not empty, add the $or operator to match either username or name fields.
-    if (searchString.trim() !== "") {
+    if (searchString && searchString.trim() !== "") {
       query.$or = [
         { username: { $regex: regex } },
         { name: { $regex: regex } },
@@ -148,6 +148,7 @@ export async function fetchCommunities({
     const totalCommunitiesCount = await Community.countDocuments(query);
 
     const communities = await communitiesQuery.exec();
+    console.log(`Fetched ${communities.length} communities`);
 
     // Check if there are more communities beyond the current page.
     const isNext = totalCommunitiesCount > skipAmount + communities.length;

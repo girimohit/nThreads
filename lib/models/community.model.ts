@@ -32,7 +32,7 @@ const communitySchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-});
+}, { timestamps: true });
 
 const Community =
   mongoose.models.Community || mongoose.model("Community", communitySchema);
