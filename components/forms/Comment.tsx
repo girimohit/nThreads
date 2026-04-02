@@ -35,6 +35,7 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
       thread: "",
     },
   });
+  const { formState } = form;
 
   const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
     await addCommentToThread(
@@ -76,8 +77,8 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
           )}
         />
 
-        <Button type='submit' className='comment-form_btn'>
-          Reply
+        <Button type='submit' className='comment-form_btn' disabled={formState.isSubmitting}>
+          {formState.isSubmitting ? "Replying..." : "Reply"}
         </Button>
       </form>
     </Form>

@@ -37,6 +37,7 @@ function PostThread({ userId }: Props) {
       accountId: userId,
     },
   });
+  const { formState } = form;
 
   const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
     await createThread({
@@ -71,8 +72,8 @@ function PostThread({ userId }: Props) {
           )}
         />
 
-        <Button type='submit' className='bg-primary-500'>
-          Post Thread
+        <Button type='submit' className='bg-primary-500' disabled={formState.isSubmitting}>
+          {formState.isSubmitting ? "Posting..." : "Post Thread"}
         </Button>
       </form>
     </Form>

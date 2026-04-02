@@ -22,8 +22,11 @@ async function Page() {
           appearance={{
             baseTheme: dark,
             elements: {
-              rootBox: "flex justify-center items-center",
-              cardRoot: "bg-dark-2",
+              rootBox: "flex justify-center items-center w-full",
+              cardRoot: "bg-dark-2 border border-dark-4 shadow-2xl rounded-2xl w-full max-w-full",
+              formButtonPrimary: "bg-primary-500 hover:bg-purple-700 transition-all duration-200 text-base-semibold",
+              organizationSwitcherTrigger: "py-3 px-5 bg-dark-3 rounded-lg border border-dark-4 text-light-1",
+              footer: "hidden",
             },
           }}
         />
