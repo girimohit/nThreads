@@ -24,7 +24,7 @@ function Topbar() {
     <nav className="topbar bg-gradient-to-r from-primary-600 to-primary-800 p-4 rounded-b-xl shadow-md flex justify-between items-center">
       <Link href="/" className="flex items-center gap-4">
         <Image src="/logo.svg" alt="logo" width={28} height={28} />
-        <p className="text-heading3-bold text-white max-xs:hidden">Threads</p>
+        <p className="text-heading3-bold text-white max-xs:hidden">nThreads</p>
       </Link>
 
       <div className="flex items-center gap-4">

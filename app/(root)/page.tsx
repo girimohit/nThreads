@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import ThreadCard from "@/components/cards/ThreadCard";
 import Pagination from "@/components/shared/Pagination";
+import LandingPage from "@/components/shared/LandingPage";
 
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
@@ -31,7 +32,7 @@ export default async function Home({ searchParams }: HomeProps) {
   const resolvedSearchParams = await searchParams;
 
   const user = await currentUser();
-  if (!user) return null;
+  if (!user) return <LandingPage />;
 
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
